@@ -90,7 +90,16 @@
         <div class="description">Your papers are wrong. Correct your documentation and come again!</div>
         <a href="https://arstotzka-airlines.github.io/download" class="button">Download Game</a>
         <a href="https://arstotzka-airlines.github.io/" class="buttodn">Return to border</a>
-        <a href="#marker.io" class="button">Report problem</a>
+        <a onclick="Userback.open();" href="#help=true" class="button">Report problem</a>
     </div>
 </body>
+        <script>
+  window.Userback = window.Userback || {};
+  Userback.access_token = 'A-WXSY7cLVC8KdsTleIvXkbd5ZJ';
+  // identify your logged-in users (optional)
+  Userback.user_data = {};
+  (function(d) {
+    var s = d.createElement('script');s.async = true;s.src = 'https://static.userback.io/widget/v1.js';(d.head || d.body).appendChild(s);
+  })(document);
+</script>
 </html>
