@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        #drawing-area {
+            border: 2px solid #ccc;
+            background-color: #fff;
+            margin-right: 20px;
+            width: 520px;
+            height: 520px;
+            position: relative;
+        }
+        #drawing-area iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #fullscreen-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #fullscreen-btn:hover {
+            background-color: #0056b3;
+        }
+        #checklist {
+            max-width: 400px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #checklist li {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #checklist input[type="file"] {
+            margin-left: 10px;
+        }
+        #email-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #email-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Current stuff you need to record. More coming soon</h2>
+        <ul id="checklist">
+            <!-- Generate 50 items with file inputs and predefined names -->
+            <!-- Using JavaScript for generating items dynamically -->
+        </ul>
+        <button id="email-btn">Download Files</button>
+        <p id="instructions" style="margin-top: 20px;">
+            After downloading the zip file, attach it to an email addressed to <a href="mailto:mrman6547@gmail.com">mrman6547@gmail.com</a>.
+        </p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        // JavaScript to dynamically create the checklist
+        const checklist = document.getElementById('checklist');
+        const fileNames = [
+            'Song-MainMusic.mp3', '(rock-like)Song-ProtectSergiu.mp3', '(Win theme)Song-HereComesTheEnd.mp3', /* Add more names here */
+            'Song-GloryToEzic.mp3', 'Immigrant Explostion.mp3', 'Printer Printing.mp3', /* Ensure to include up to 50 items */
+            /* Continue listing names up to 50 items */
+            'HaYaHu.mp3', 'PayPers.mp3', 'GiveDocument.mp3', 'CheckingDocument.mp3','DeathTheme.mp3'
+        ];
+
+        fileNames.forEach((name, index) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                ${name}
+                <input type="file" accept=".mp3"/>
+            `;
+            checklist.appendChild(listItem);
+        });
+
+        document.getElementById('email-btn').addEventListener('click', () => {
+            const zip = new JSZip();
+            const fileInputs = document.querySelectorAll('#checklist input[type="file"]');
+            
+            fileInputs.forEach((input, index) => {
+                if (input.files.length > 0) {
+                    const file = input.files[0];
+                    zip.file(fileNames[index], file);
+                }
+            });
+
+            zip.generateAsync({ type: 'blob' })
+                .then(content => {
+                    saveAs(content, 'checklist_files.zip');
+                });
+        });
+
+        // Function to toggle fullscreen mode for the iframe
+        document.getElementById('fullscreen-btn').addEventListener('click', () => {
+            const iframe = document.getElementById('piskel-iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>
