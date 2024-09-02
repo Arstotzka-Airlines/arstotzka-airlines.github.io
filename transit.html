@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transit...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        function getRedirectUrl() {
+            // Extract the fragment from the URL
+            const hash = window.location.hash.substring(1);
+            // Return the URL from the fragment
+            return hash;
+        }
+
+        function redirectTo(url) {
+            setTimeout(function() {
+                window.location.href = url;
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
+
+        window.onload = function() {
+            const url = getRedirectUrl();
+            if (url) {
+                redirectTo(url);
+            }
+        };
+    </script>
+</head>
+<body>
+    <img src="https://media1.tenor.com/m/GTfk1R3LwgUAAAAC/arstotzka-flag.gif" alt="Redirecting">
+</body>
+</html>
